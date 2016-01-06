@@ -39,6 +39,7 @@ function init()
         .append("rect")
         .attr("width", width)
         .attr("height",height)
+        .attr("stroke", "black")
         .attr("fill", "#ffffff");
 
     grp_grids = svg.append("g")
@@ -64,7 +65,6 @@ function init()
         .enter().append("rect")
         .attr("x", function(d){return d[0]*width;})
         .attr("y", function(d){return d[1]*height;})
-        .attr("stroke", 'transparent')
         .attr("opacity", 0.5)
         .attr("width", box)
         .attr("height", box);
