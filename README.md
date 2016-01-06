@@ -16,7 +16,7 @@ var T = [[0],[1],[1],[0]];
 var elm = new ELM(d, L, nclass, alpha, MappingFuncs.Sigmoid, ELMType.Classification);
 
 elm.train(X, T);
-Y = elm.predict(X);
+var Y = elm.predict(X);
 ```
 
 This `Basic ELM` provides the following Mapping Functions.
