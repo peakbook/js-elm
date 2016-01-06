@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+<title>ELM Demo</title>
+<script src="assets/d3.min.js"></script>
+<script src="assets/numeric-1.2.6.min.js"></script>
+<script src="assets/elm.js"></script>
+<script src="assets/elm_demo.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/style.css">
+</head>
+<body onload="init()" >
+<center>
+    <h1>ELM Demo</h1>
+    <div id="canvas"></div>
+    <br>
+    <form id="sampleclass">
+        <label style="color: #cc3333;">&#x25A0</label><input type="radio" name="types" value="type_a" checked="checked" >
+        <label style="color: #33cc33;">&#x25A0</label><input type="radio" name="types" value="type_b" >
+        <label style="color: #3333cc;">&#x25A0</label><input type="radio" name="types" value="type_c" >
+        <label style="color: #b8860b;">&#x25A0</label><input type="radio" name="types" value="type_d" >
+    </form>
+    <form>
+        <label>L<input type="number" id="L" step="1" min="1" max="200" value="10"></label><br>
+        <label>alpha<input type="range" id="alpha" min="0" max="14" value="10" onchange="onchange_alpha()"></label><br>
+        <div style="display:block; width:50px;" id="alpha_val"></div>
+        <label>Kernel<select id="kernel">
+                <option value="sigmoid" selected>Sigmoid</option> 
+                <option value="hardlimit">HardLimit</option>
+                <option value="hyperbolictangent">HyperbolicTangent</option>
+                <option value="multiquadric">Multiquadric</option>
+                <option value="gaussian">Gaussian</option>
+                <option value="cosine">Cosine</option>
+        </select></label>
+        <br>
+        <input type="button" id="button_learn" value="Train" onclick="onclick_train()">
+        <input type="button" id="button_clear" value="Clear" onclick="onclick_clear_samples()">
+        <input type="button" id="button_change" value="Random" onclick="onclick_random_samples()">
+    </form>
+</center>
+</body>
+</html>
+
