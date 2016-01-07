@@ -13,6 +13,19 @@ numeric.zeros = function(sz)
     return x;
 }
 
+numeric.pinv = function(X)
+{
+    var d = numeric.dim(X);
+    X = d[1]>d[0] ? numeric.transpose(X) : X;
+    var r = numeric.svd(X);
+    var uu = numeric.transpose(r.U);
+    var ss = numeric.diag(r.S.map(function(x){ return x>0.0?1.0/x:0.0;}));
+    var vv = r.V;
+    var iX = numeric.dot(numeric.dot(vv,ss),uu);
+
+    return d[1]>d[0] ? numeric.transpose(iX) : iX;
+}
+
 var ELMType = {
     'Regression': 0,
     'Classification': 1,
@@ -114,7 +127,7 @@ ELM.prototype.train = function(X,T)
             }
         }
         var ii = numeric.mul(this.alpha, numeric.identity(this.L));
-        this.beta = numeric.dot(numeric.inv(numeric.add(A,ii)),B);
+        this.beta = numeric.dot(numeric.pinv(numeric.add(A,ii)),B);
     }
     else{
         var H = numeric.random([N, this.L]);
@@ -125,7 +138,7 @@ ELM.prototype.train = function(X,T)
         }
         var tH = numeric.transpose(H);
         var ii = numeric.mul(this.alpha, numeric.identity(N));
-        this.beta = numeric.dot(numeric.dot(tH, numeric.inv(numeric.add(numeric.dot(H,tH),ii))), T);
+        this.beta = numeric.dot(numeric.dot(tH, numeric.pinv(numeric.add(numeric.dot(H,tH),ii))), T);
     }
 }
 
@@ -151,11 +164,11 @@ ELM.prototype.train = function(X,T)
 //    if (N > this.L)
 //    {
 //        var ii = numeric.mul(this.alpha, numeric.identity(this.L));
-//        this.beta = numeric.dot(numeric.dot(numeric.inv(numeric.add(numeric.dot(tH,H),ii)),tH), T);
+//        this.beta = numeric.dot(numeric.dot(numeric.pinv(numeric.add(numeric.dot(tH,H),ii)),tH), T);
 //    }
 //    else{
 //        var ii = numeric.mul(this.alpha, numeric.identity(N));
-//        this.beta = numeric.dot(numeric.dot(tH, numeric.inv(numeric.add(numeric.dot(H,tH),ii))), T);
+//        this.beta = numeric.dot(numeric.dot(tH, numeric.pinv(numeric.add(numeric.dot(H,tH),ii))), T);
 //    }
 //}
 
